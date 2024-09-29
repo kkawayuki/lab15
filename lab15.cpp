@@ -23,18 +23,17 @@ public:
 
     void printAll() const
     {
-        cout << "---------------------\n";
-        cout << "Writer of Movie: " << writer << '\n';
-        cout << "Year published: " << year << '\n';
-        cout << "Title of Movie: " << title << '\n';
+        cout << "Movie: " << writer << '\n';
+        cout << "\tYear released: " << year << '\n';
+        cout << "\tScreenwriter: " << title << "\n\n";
     }
 };
 
-// prototype
-Movie readInMovies();
+// global variable
+const int SIZE = 4; // max capacity, edit based on input.txt
 
-// global
-const int SIZE = 4; // max capacity
+// prototype
+void readInMovies(array<Movie, SIZE> &movies);
 
 /**************************************
  * Fucntion: Main
@@ -43,8 +42,7 @@ int main()
 {
     array<Movie, SIZE> movies;
 
-    for (int i = 0; i < SIZE; i++)
-        movies[i] = readInMovies(); // pass pointer to
+    readInMovies(movies);
 
     // output array elements
     for (int i = 0; i < SIZE; i++)
@@ -53,14 +51,14 @@ int main()
     }
 }
 
-Movie readInMovies()
+void readInMovies(array<Movie, SIZE> &movies)
 {
     Movie temp;
     string buf;
     int ibuf;
 
     ifstream in;
-    in.open("data.txt");
+    in.open("input.txt");
 
     if (!in.good()) // validation
     {
@@ -68,15 +66,20 @@ Movie readInMovies()
     }
     else
     {
-        getline(in, buf);
-        temp.setWriter(buf);
+        for (int i = 0; i < SIZE; i++)
+        {
+            getline(in, buf);
+            temp.setTitle(buf);
 
-        in >> ibuf;
-        temp.setYear(ibuf);
+            in >> ibuf;
+            temp.setYear(ibuf);
 
-        in.ignore();
-        getline(in, buf);
-        temp.setTitle(buf);
+            in.ignore();
+            getline(in, buf);
+            temp.setWriter(buf);
+
+            movies[i] = temp;
+        }
     }
-    return (temp);
+    in.close();
 }
