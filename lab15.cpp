@@ -21,7 +21,7 @@ public:
     void setYear(int num) { year = num; }
     void setTitle(string name) { title = name; }
 
-    void printAll()
+    void printAll() const
     {
         cout << "---------------------\n";
         cout << "Writer of Movie: " << writer << '\n';
@@ -30,22 +30,20 @@ public:
     }
 };
 
-// struct
-Movie readInMovie();
+// prototype
+void readInMovies(array<Movie,SIZE>&);
+
+//global
+const int SIZE = 4; // max capacity
 
 /**************************************
  * Fucntion: Main
  **************************************/
 int main()
 {
-    const int SIZE = 4; // max capacity
-    array<Movie, SIZE> movies;
+    array<Movie, SIZE>movies;
 
-    // populate array
-    for (int i = 0; i < SIZE; i++)
-    {
-        movies[i] = readInMovie();
-    }
+    readInMovies(movies); //pass pointer to 
 
     // output array elements
     for (int i = 0; i < SIZE; i++)
@@ -54,10 +52,10 @@ int main()
     }
 }
 
-Movie readInMovie()
-{
-    Movie temp; // to be filled/returned with each call?
 
+void readInMovies(array<Movie,SIZE>& movieArr)
+{
+    Movie temp; 
     string buf;
     int ibuf;
 
@@ -79,5 +77,4 @@ Movie readInMovie()
         getline(in, buf);
         temp.setTitle(buf);
     }
-    return (temp);
 }
