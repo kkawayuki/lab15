@@ -31,9 +31,9 @@ public:
 };
 
 // prototype
-void readInMovies(array<Movie,SIZE>&);
+Movie readInMovies();
 
-//global
+// global
 const int SIZE = 4; // max capacity
 
 /**************************************
@@ -41,9 +41,10 @@ const int SIZE = 4; // max capacity
  **************************************/
 int main()
 {
-    array<Movie, SIZE>movies;
+    array<Movie, SIZE> movies;
 
-    readInMovies(movies); //pass pointer to 
+    for (int i = 0; i < SIZE; i++)
+        movies[i] = readInMovies(); // pass pointer to
 
     // output array elements
     for (int i = 0; i < SIZE; i++)
@@ -52,14 +53,14 @@ int main()
     }
 }
 
-
-void readInMovies(array<Movie,SIZE>& movieArr)
+Movie readInMovies()
 {
-    Movie temp; 
+    Movie temp;
     string buf;
     int ibuf;
 
-    ifstream in("data.txt");
+    ifstream in;
+    in.open("data.txt");
 
     if (!in.good()) // validation
     {
@@ -77,4 +78,5 @@ void readInMovies(array<Movie,SIZE>& movieArr)
         getline(in, buf);
         temp.setTitle(buf);
     }
+    return (temp);
 }
