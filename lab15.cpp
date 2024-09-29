@@ -33,15 +33,12 @@ public:
 // struct
 Movie readInMovie();
 
-//global
-const int SIZE = 4; // max capacity
-
 /**************************************
  * Fucntion: Main
  **************************************/
 int main()
 {
-    
+    const int SIZE = 4; // max capacity
     array<Movie, SIZE> movies;
 
     // populate array
@@ -57,7 +54,7 @@ int main()
     }
 }
 
-Movie readInMovie(array<Movie, SIZE> buf)
+Movie readInMovie()
 {
     Movie temp; // to be filled/returned with each call?
 
@@ -72,18 +69,15 @@ Movie readInMovie(array<Movie, SIZE> buf)
     }
     else
     {
-        while (in >> buf) //range-based for loop
-        {
-            in.ignore();
-            getline(in, buf);
-            temp.setWriter(buf);
+        getline(in, buf);
+        temp.setWriter(buf);
 
-            in >> ibuf;
-            temp.setYear(ibuf);
+        in >> ibuf;
+        temp.setYear(ibuf);
 
-            in.ignore();
-            getline(in, buf);
-            temp.setTitle(buf);
-        }
+        in.ignore();
+        getline(in, buf);
+        temp.setTitle(buf);
     }
+    return (temp);
 }
